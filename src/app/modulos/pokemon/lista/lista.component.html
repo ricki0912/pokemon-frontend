@@ -1,0 +1,27 @@
+<h1>Lista de Pokemones</h1>
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        <div class="col mb-2" *ngFor="let element of pokemones">
+
+            <div class="card h-100" [routerLink]="'./'+element.id" style="cursor: pointer; ">
+                <div class="ratio ratio-4x3">
+                    <img [src]="getUrlImg(element.id)" class="embed-responsive-item enable-to-play">
+                </div>
+
+                <div class="card-footer">
+                    <div class="d-flex justify-ce-between">
+                        <button mat-button (click)="true">
+                            {{element.name}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+        <mat-progress-spinner color="primary" mode="indeterminate">
+        </mat-progress-spinner>
+    </mat-card>
+
+</div>

@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            <h1 class="card-title">{{detallePokemon?.name}}</h1>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="ratio ratio-4x3">
+                        <img [src]="getUrlImg(id)">
+                    </div>
+                </div>
+                <div class="col-6">
+
+                    <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+                        <mat-progress-spinner color="primary" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </mat-card>
+
+                    <p>{{detallePokemon?.color?.name}}</p>
+                    <h2>Información</h2>
+                    <p *ngFor="let f of flavorTextEntries">
+                        {{f.flavor_text}}
+                        <br>
+                    </p>
+                </div>
+
+            </div>
+
+            <h2>Cadena de Evolución</h2>
+
+            <div>
+                <ng-container *ngTemplateOutlet="templateRecursividad; context:{envolves_to :chain}">
+                </ng-container>
+            </div>
+
+            <ng-template #templateRecursividad let-envolves_to="envolves_to">
+                <div class="row border border-secondary m-1"  *ngFor="let item of envolves_to">
+                    <div class="" [routerLink]="'./../'+item.species.id" style="cursor: pointer;">
+                        <img [src]="getUrlImg(item.species.id)" height="100px"
+                            class="embed-responsive-item enable-to-play">
+                        <h3>{{item.species.name}}</h3>
+                    </div>
+
+                    <div *ngIf="item.evolves_to as envolves_to">
+                        <ng-container *ngTemplateOutlet="templateRecursividad; context:{envolves_to}">
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
