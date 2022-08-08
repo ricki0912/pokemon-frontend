@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Helper } from 'src/app/helpers/helper';
 import { DetallePokemon, FlavorTextEntry } from 'src/app/interfaces/detalle-pokemon';
 import { Chain, EvolutionPokemon } from 'src/app/interfaces/evolution-pokemon';
+import { EvolutionChainService } from 'src/app/services/evolution-chain.service';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
@@ -25,7 +26,8 @@ export class DetalleComponent implements OnInit {
 
   constructor(
     private _activatedRouted:ActivatedRoute,
-    private _pokemonService:PokemonService
+    private _pokemonService:PokemonService,
+    private _evolutionChainService:EvolutionChainService
   ) { }
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class DetalleComponent implements OnInit {
 
   private getEvolutionChain=(id:number)=>{
     this.isLoading=true;
-    this._pokemonService.getEvolutionChain(id).subscribe({
+    this._evolutionChainService.find(id).subscribe({
       next: e=>{
         this.evolutionChain=e
         this.chain=[e.chain]

@@ -9,7 +9,7 @@ import { Respuesta } from '../interfaces/respusta';
 @Injectable({
   providedIn: 'root'
 })
-export class PokemonService {
+export class EvolutionChainService {
   private API_POKEMON = `${environment.API_POKEAPI}`
 
   constructor(
@@ -17,14 +17,10 @@ export class PokemonService {
   ) { 
 
   }
-  all(offset:number, limit:number):Observable<Respuesta>{
-    return this.https.get<Respuesta>(`${this.API_POKEMON}/pokemones`, {params:{offset, limit}})
+ 
+  find(id:number):Observable<EvolutionPokemon>{
+    return this.https.get<EvolutionPokemon>(`${this.API_POKEMON}/evolution-chain/${id}`)
   }
-
-  find(id:number):Observable<DetallePokemon>{
-    return this.https.get<DetallePokemon>(`${this.API_POKEMON}/pokemones/${id}`, )
-  }
-
 
 
 }
